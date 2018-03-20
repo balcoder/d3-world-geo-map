@@ -1,10 +1,14 @@
-'use strict';
+//****************************************************************************//
+//****************Map Data Across the Globe Using D3.js***********************//
+//****************************************************************************//
 
-const test = [1, 2, 3, 4, 5, 6];
+// url for json Data
+const url = "https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json"
 
-const double = test.map(function(num) {
-  let multiplier = 5;
-  return num * multiplier;
-});
-
-document.getElementById('test').style.fontSize = "250%";
+//add the svg to a canvas
+var svg = d3.select("body")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append('g')
+            .attr('class', 'map');
