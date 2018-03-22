@@ -5,16 +5,27 @@ body {
   background-color: $color-teal-base;
   color: $color-text;
 }
-
-
-h1,h2 {
+svg {
+  //background: #efefef;
+  background: #0D569C;
+}
+.country {
+  fill: #98aa61;
+  stroke: #fff;
+  stroke-width: 0.5;
+}
+.selected {
+  fill: #ff0000;
+}
+div.tooltip {
+  position: absolute;
   text-align: center;
-
-}
-.foo {
-  @include absolute(0, 0, auto, auto);
-}
-
-.Tour {
-  display: flex;
+  width: 100px;
+  height: 40px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
 }
