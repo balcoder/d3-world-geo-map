@@ -2,12 +2,16 @@
 @import 'utilities';
 
 body {
-  background-color: $color-teal-base;
+  background-color: #0d569c;
   color: $color-text;
+}
+#map {
+  margin-right: auto;
+  margin-left: auto;
 }
 svg {
   //background: #efefef;
-  background: #0D569C;
+  background: #0d569c;
 }
 .country {
   fill: #98aa61;

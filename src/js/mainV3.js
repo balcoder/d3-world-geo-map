@@ -12,9 +12,15 @@
   const urls = ["https://d3js.org/world-50m.v1.json",
   "https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json"];
 
+  //color scale for meteorites
   var color = d3.scaleThreshold()
     .domain([0,100,1000,10000,50000,100000,5000000,1000000,5000000,30000000])
     .range(["rgb(247,251,255)", "rgb(222,235,247)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)","rgb(33,113,181)","rgb(8,81,156)","rgb(8,48,107)","rgb(3,19,43)"]);
+
+  // radius scale for meteorites
+  var weight = d3.scaleLinear()
+    .domain([0,3000000])
+    .range([2,10]);
 
   // div for tooltip
   var div = d3.select("#map").append("div")
@@ -22,13 +28,13 @@
     .style("opacity", 0);
 
 
-
+  // add the svg and group to the container
   var svg = d3.select("#map")
-            .append("svg")
-            .attr("height", height + margin.top + margin.bottom)
-            .attr("width", width + margin.left + margin.right)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top +")");
+    .append("svg")
+    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", width + margin.left + margin.right)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top +")");
 
   // create time formater
   var formatTime = d3.timeFormat("%Y");
@@ -36,7 +42,7 @@
   //create a new projection
   var projection = d3.geoMercator()
                     .translate([width / 2, height / 2])
-                    .scale(350);
+                    .scale(300);
 
   //create a path (geoPath) passing the projection
   var path =d3.geoPath()
@@ -73,21 +79,14 @@
           .data(countries)
           .enter().append("path")
           .attr("class", "country")
-          .attr("d", path)
-          .on('mouseover', function(d) {
-            // add the class
-            d3.select(this).classed("selected", true)
-          })
-          .on('mouseout', function(d) {
-            // add the class
-            d3.select(this).classed("selected", false)
-          })
+          .attr("d", path);
+
 
 
       svg.selectAll(".meteorite-spots")
           .data(meteorites.features)
           .enter().append("circle")
-          .attr("r", 2)
+          .attr("r", function(d) { return weight(d.properties.mass); })
           .style("fill",function(d) { return color(d.properties.mass); })
           .attr("cx", function(d){
             if(d.geometry == null)   return 0;
@@ -102,8 +101,6 @@
             return coords[1];
           })
           .on("mouseover", function(d) {
-
-            console.log(d);
             div.transition()
               .duration(200)
               .style("opacity", .9);
