@@ -3,18 +3,18 @@
 
 body {
   background-color: #0d569c;
+  font-family: 'Roboto Slab', serif;
   color: $color-text;
+  text-align: center;
+
 }
 #map {
   display: block;
   width: 95%;
-  margin:auto;
+  margin: auto;
 }
-#title {
-  color: #ffffff;
-  text-align: center;
-}
-svg {  
+
+svg {
   background: #0d569c;
 }
 .country {
@@ -23,7 +23,7 @@ svg {
   stroke-width: 0.5;
 }
 .selected {
-  fill: #ff0000;
+  fill: #f00;
 }
 div.tooltip {
   position: absolute;

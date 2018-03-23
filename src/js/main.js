@@ -32,6 +32,9 @@
     .append("svg")
     .attr("height", height + margin.top + margin.bottom)
     .attr("width", width + margin.left + margin.right)
+    .call(d3.zoom().on("zoom", function () {
+        svg.attr("transform", d3.event.transform)
+     }))
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top +")");
 
@@ -41,7 +44,7 @@
   // projection scales globe coords to flat screen coords
   var projection = d3.geoMercator()
                     .translate([width / 2, height / 2])
-                    .scale(200);
+                    .scale(180);
 
   //create a path (geoPath) passing the projection
   var path =d3.geoPath()
@@ -68,11 +71,6 @@
       // Returns the GeoJSON Feature or FeatureCollection for
       // the specified object in the given topology
       var countries = topojson.feature(world, world.objects.countries).features;
-      //var meteorite = topojson.feature(landings, landings.features).features;
-
-        console.log(formatTime(new Date("2010-01-01T00:00:00.000")))
-      //console.log(countries[0]);
-      //console.log( meterorites);
 
       // add path for each country
       svg.selectAll(".country")
@@ -80,7 +78,6 @@
           .enter().append("path")
           .attr("class", "country")
           .attr("d", path);
-
 
       // add the meteorites to the svg
       svg.selectAll(".meteorite-spots")
