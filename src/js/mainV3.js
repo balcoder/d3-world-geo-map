@@ -19,8 +19,8 @@
 
   // radius scale for meteorites
   var weight = d3.scaleLinear()
-    .domain([0,3000000])
-    .range([2,10]);
+    .domain([1000,23000000])
+    .range([2,50]);
 
   // div for tooltip
   var div = d3.select("#map").append("div")
@@ -42,7 +42,7 @@
   //create a new projection
   var projection = d3.geoMercator()
                     .translate([width / 2, height / 2])
-                    .scale(300);
+                    .scale(200);
 
   //create a path (geoPath) passing the projection
   var path =d3.geoPath()
@@ -82,10 +82,12 @@
           .attr("d", path);
 
 
-
+      // add the meteorites to the svg
       svg.selectAll(".meteorite-spots")
           .data(meteorites.features)
           .enter().append("circle")
+          // use weight and color scales to add color and size based on the
+          // mass of the meteorite
           .attr("r", function(d) { return weight(d.properties.mass); })
           .style("fill",function(d) { return color(d.properties.mass); })
           .attr("cx", function(d){
@@ -108,7 +110,6 @@
              "<br/>" + "Year: " + formatTime(new Date(d.properties.year)))
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
-
           })
           .on("mouseout", function(d) {
             div.transition()
@@ -118,9 +119,5 @@
 
 
   })
-
-
-
-
 
 })()
