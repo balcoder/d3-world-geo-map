@@ -6,11 +6,15 @@ body {
   color: $color-text;
 }
 #map {
-  margin-right: auto;
-  margin-left: auto;
+  display: block;
+  width: 95%;
+  margin:auto;
 }
-svg {
-  //background: #efefef;
+#title {
+  color: #ffffff;
+  text-align: center;
+}
+svg {  
   background: #0d569c;
 }
 .country {
